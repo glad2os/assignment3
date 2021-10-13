@@ -13,19 +13,19 @@ namespace assignment3
             switch (Console.ReadLine())
             {
                 case "1":
-                    Console.Write("Calculate area");
+                    Console.WriteLine("Calculate area");
                     break;
                 case "2":
-                    Console.Write("Calculate volume");
+                    Console.WriteLine("Calculate volume");
                     break;
                 case "3":
-                    Console.Write("Calculate surface area");
+                    Console.WriteLine("Calculate surface area");
                     break;
                 case "4":
-                    Console.Write("Exit the program");
+                    Console.WriteLine("Exit the program");
                     break;
                 default:
-                    Console.Write("ERROR: Invalid choice");
+                    Console.WriteLine("ERROR: Invalid choice");
                     break;
             }
         }
@@ -64,10 +64,10 @@ namespace assignment3
 
             switch (locationNumber)
             {
-                case '1':
+                case 1:
                     Console.WriteLine("Yours total price is ${0}", numberCourses * domestic);
                     break;
-                case '2':
+                case 2:
                     Console.WriteLine("Yours total price is ${0}", numberCourses * international);
                     break;
             }
@@ -89,7 +89,7 @@ namespace assignment3
             };
 
             if (!weekSchedule.TryGetValue(Console.ReadLine() ?? string.Empty, out var selected))
-                throw MyCustomException.QuestionNotFound;
+                throw MyCustomException.WeekDay;
 
             Console.WriteLine(selected);
         }
@@ -188,7 +188,7 @@ namespace assignment3
             return variable;
         }
 
-        private static double GetInteger(string text)
+        private static int GetInteger(string text)
         {
             Console.Write(text);
             if (!int.TryParse(Console.ReadLine(), out var variable))
