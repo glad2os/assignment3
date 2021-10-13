@@ -1,12 +1,50 @@
 ﻿using System;
+using System.Collections.Generic;
+using assignment3.Exceptions;
 
 namespace assignment3
 {
-    class Program
+    internal static class Program
     {
-        static void Main(string[] args)
+        private static bool _working = true;
+        
+        private static readonly Dictionary<string, Action> Questions = new()
         {
-            Console.WriteLine("Hello World!");
+            {"0", () => { _working = false;}},
+            {"1", Tasks.Question1},
+            {"2", Tasks.Question2},
+            {"3", Tasks.Question3},
+            {"4", Tasks.Question4},
+            {"5", Tasks.Question5},
+            {"6", Tasks.Question6},
+            {"7", Tasks.Question7},
+            {"8", Tasks.Question8},
+            {"9", Tasks.Question9},
+            {"10", Tasks.Question10}
+        };
+        
+        private static void Main(string[] args)
+        {
+            while (_working)
+            {
+                try
+                {
+                    //Console.Clear();
+                    Console.Write("Enter the number (1-7) for the question to run or 0 to exit: ");
+                    var question = Console.ReadLine() ?? string.Empty;
+
+                    if (!Questions.TryGetValue(question, out var action))
+                        throw MyCustomException.QuestionNotFound;
+
+                    Console.WriteLine($"You entered: {question}");
+                    Console.WriteLine("------------");
+                    action.Invoke();
+                }
+                catch (MyCustomException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
         }
     }
 }
