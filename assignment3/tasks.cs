@@ -141,27 +141,99 @@ namespace assignment3
 
         public static void Question6()
         {
-            throw new NotImplementedException();
+            Console.Write("Please type your hourly pay rate: ");
+
+            if (!double.TryParse(Console.ReadLine(), out var userChoice))
+                throw MyCustomException.IsNotADouble;
+
+            if (userChoice < 5.65) throw MyCustomException.LessThanNeeded;
         }
 
         public static void Question7()
         {
-            throw new NotImplementedException();
+            var rate = Solve(() => { return Solve(() => throw MyCustomException.ValueLessGreater); });
+            Console.WriteLine("Your price is: " + rate);
+        }
+
+        private static double Solve(Func<double> callback)
+        {
+            Console.Write("Please type your hourly pay rate: ");
+
+            if (!double.TryParse(Console.ReadLine(), out var rate))
+                throw MyCustomException.IsNotADouble;
+
+            if (rate is < 5.65 or > 49.99)
+            {
+                return callback();
+            }
+
+            return rate * 40;
         }
 
         public static void Question8()
         {
-            throw new NotImplementedException();
+            Console.Write("Numeric high school grade point: ");
+
+            if (!double.TryParse(Console.ReadLine(), out var averageGrades))
+                throw MyCustomException.IsNotADouble; //TODO: inline function
+
+            Console.Write("Test score: ");
+
+            if (!double.TryParse(Console.ReadLine(), out var testScore))
+                throw MyCustomException.IsNotADouble; //TODO: inline function
+
+            if (averageGrades >= 3 && testScore >= 60)
+            {
+                Console.WriteLine("Accept");
+            }
+            else if (testScore >= 80)
+            {
+                Console.WriteLine("Accept");
+            }
+            else
+            {
+                Console.WriteLine("Reject");
+            }
         }
 
         public static void Question9()
         {
-            throw new NotImplementedException();
+            Console.Write("Please input hourly pay rate : ");
+
+            if (!double.TryParse(Console.ReadLine(), out var rate))
+                throw MyCustomException.IsNotADouble; //TODO: inline function
+
+            Console.Write("Please input hours worked: ");
+
+            if (!double.TryParse(Console.ReadLine(), out var hours))
+                throw MyCustomException.IsNotADouble; //TODO: inline function
+
+            var grossPay = hours * rate;
+
+            Console.WriteLine("gross pay: {0}", grossPay);
+            Console.WriteLine("net pay: {0}", grossPay * (rate < 300 ? 0.9 : 0.88));
         }
 
         public static void Question10()
         {
-            throw new NotImplementedException();
+            Console.Write("Please input the width: ");
+
+            if (!double.TryParse(Console.ReadLine(), out var width))
+                throw MyCustomException.IsNotADouble; //TODO: inline function
+
+            Console.Write("Please input the height: ");
+
+            if (!double.TryParse(Console.ReadLine(), out var height))
+                throw MyCustomException.IsNotADouble; //TODO: inline function
+
+            var rate = height * width switch
+            {
+                < 400 => 25,
+                >= 600 => 50,
+                _ => 35
+            };
+
+            Console.WriteLine("Your price is {0}", rate * 20);
         }
     }
 }
