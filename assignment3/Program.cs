@@ -7,10 +7,10 @@ namespace assignment3
     internal static class Program
     {
         private static bool _working = true;
-        
+
         private static readonly Dictionary<string, Action> Questions = new()
         {
-            {"0", () => { _working = false;}},
+            {"0", () => { _working = false; }},
             {"1", Tasks.Question1},
             {"2", Tasks.Question2},
             {"3", Tasks.Question3},
@@ -22,11 +22,10 @@ namespace assignment3
             {"9", Tasks.Question9},
             {"10", Tasks.Question10}
         };
-        
+
         private static void Main(string[] args)
         {
             while (_working)
-            {
                 try
                 {
                     //Console.Clear();
@@ -44,7 +43,6 @@ namespace assignment3
                 {
                     Console.WriteLine(e.Message);
                 }
-            }
         }
     }
 }

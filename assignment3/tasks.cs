@@ -32,15 +32,8 @@ namespace assignment3
 
         public static void Question2()
         {
-            Console.Write("Please enter first number: ");
-
-            if (!int.TryParse(Console.ReadLine(), out var firstNumber))
-                throw MyCustomException.IsNotANumber;
-
-            Console.Write("Please enter second number: ");
-
-            if (!int.TryParse(Console.ReadLine(), out var secondNumber))
-                throw MyCustomException.IsNotANumber;
+            var firstNumber = GetInteger("Please enter first number: ");
+            var secondNumber = GetInteger("Please enter second number: ");
 
             Console.Write("Please type a new char: ");
 
@@ -48,21 +41,14 @@ namespace assignment3
             var diff = secondNumber - firstNumber;
             var times = secondNumber * firstNumber;
 
-            Console.Write("Result is: ");
-
-            switch (Console.ReadKey().KeyChar)
+            var rate = Console.ReadKey().KeyChar switch
             {
-                case 'A':
-                    Console.Write("{0}", sum);
-                    break;
-                case 'S':
-                    Console.Write("{0}", diff);
-                    break;
-                default:
-                    Console.Write("{0}", times);
-                    break;
-            }
+                'A' => sum,
+                'S' => diff,
+                _ => times
+            };
 
+            Console.WriteLine("Your result is: " + rate);
             Console.WriteLine($"{firstNumber} + {secondNumber} = {sum}\n" +
                               $"{secondNumber} + {firstNumber} = {diff}\n" +
                               $"{firstNumber} * {secondNumber} = {times}");
@@ -73,15 +59,8 @@ namespace assignment3
             const int domestic = 325;
             const int international = 1375;
 
-            Console.Write("Please input 1 as domestic or 2 as the international: ");
-
-            if (!int.TryParse(Console.ReadLine(), out var locationNumber))
-                throw MyCustomException.IsNotANumber;
-
-            Console.Write("Please type number of courses: ");
-
-            if (!int.TryParse(Console.ReadLine(), out var numberCourses))
-                throw MyCustomException.IsNotANumber;
+            var locationNumber = GetInteger("Please input 1 as domestic or 2 as the international: ");
+            var numberCourses = GetInteger("Please type number of courses: ");
 
             switch (locationNumber)
             {
@@ -141,12 +120,8 @@ namespace assignment3
 
         public static void Question6()
         {
-            Console.Write("Please type your hourly pay rate: ");
-
-            if (!double.TryParse(Console.ReadLine(), out var userChoice))
-                throw MyCustomException.IsNotADouble;
-
-            if (userChoice < 5.65) throw MyCustomException.LessThanNeeded;
+            if (GetDouble("Please type your hourly pay rate: ") < 5.65)
+                throw MyCustomException.LessThanNeeded;
         }
 
         public static void Question7()
@@ -162,52 +137,28 @@ namespace assignment3
             if (!double.TryParse(Console.ReadLine(), out var rate))
                 throw MyCustomException.IsNotADouble;
 
-            if (rate is < 5.65 or > 49.99)
-            {
-                return callback();
-            }
+            if (rate is < 5.65 or > 49.99) return callback();
 
             return rate * 40;
         }
 
         public static void Question8()
         {
-            Console.Write("Numeric high school grade point: ");
-
-            if (!double.TryParse(Console.ReadLine(), out var averageGrades))
-                throw MyCustomException.IsNotADouble; //TODO: inline function
-
-            Console.Write("Test score: ");
-
-            if (!double.TryParse(Console.ReadLine(), out var testScore))
-                throw MyCustomException.IsNotADouble; //TODO: inline function
+            var averageGrades = GetDouble("Numeric high school grade point: ");
+            var testScore = GetInteger("Test score: ");
 
             if (averageGrades >= 3 && testScore >= 60)
-            {
                 Console.WriteLine("Accept");
-            }
             else if (testScore >= 80)
-            {
                 Console.WriteLine("Accept");
-            }
             else
-            {
                 Console.WriteLine("Reject");
-            }
         }
 
         public static void Question9()
         {
-            Console.Write("Please input hourly pay rate : ");
-
-            if (!double.TryParse(Console.ReadLine(), out var rate))
-                throw MyCustomException.IsNotADouble; //TODO: inline function
-
-            Console.Write("Please input hours worked: ");
-
-            if (!double.TryParse(Console.ReadLine(), out var hours))
-                throw MyCustomException.IsNotADouble; //TODO: inline function
-
+            var rate = GetDouble("Please input hourly pay rate : ");
+            var hours = GetDouble("Please input hours worked: ");
             var grossPay = hours * rate;
 
             Console.WriteLine("gross pay: {0}", grossPay);
@@ -216,15 +167,8 @@ namespace assignment3
 
         public static void Question10()
         {
-            Console.Write("Please input the width: ");
-
-            if (!double.TryParse(Console.ReadLine(), out var width))
-                throw MyCustomException.IsNotADouble; //TODO: inline function
-
-            Console.Write("Please input the height: ");
-
-            if (!double.TryParse(Console.ReadLine(), out var height))
-                throw MyCustomException.IsNotADouble; //TODO: inline function
+            var width = GetDouble("Please input the width: ");
+            var height = GetDouble("Please input the height: ");
 
             var rate = height * width switch
             {
@@ -234,6 +178,22 @@ namespace assignment3
             };
 
             Console.WriteLine("Your price is {0}", rate * 20);
+        }
+
+        private static double GetDouble(string text)
+        {
+            Console.Write(text);
+            if (!double.TryParse(Console.ReadLine(), out var variable))
+                throw MyCustomException.IsNotADouble;
+            return variable;
+        }
+
+        private static double GetInteger(string text)
+        {
+            Console.Write(text);
+            if (!int.TryParse(Console.ReadLine(), out var variable))
+                throw MyCustomException.IsNotAnInteger;
+            return variable;
         }
     }
 }
